@@ -1,0 +1,181 @@
+restaurant_id,restaurant_name,city,cuisine,avg_rating
+1,Restaurant_1,Kolkata,Italian,3.1
+2,Restaurant_2,Hyderabad,Fast Food,3.6
+3,Restaurant_3,Pune,Biryani,3.4
+4,Restaurant_4,Kolkata,Biryani,3.5
+5,Restaurant_5,Delhi,Italian,3.9
+6,Restaurant_6,Pune,Biryani,3.7
+7,Restaurant_7,Pune,Chinese,3.7
+8,Restaurant_8,Kolkata,Desserts,4.6
+9,Restaurant_9,Mumbai,South Indian,4.8
+10,Restaurant_10,Delhi,Healthy Food,3.1
+11,Restaurant_11,Kolkata,Street Food,3.4
+12,Restaurant_12,Delhi,Fast Food,4.3
+13,Restaurant_13,Delhi,Desserts,3.7
+14,Restaurant_14,Pune,Italian,3.5
+15,Restaurant_15,Hyderabad,Healthy Food,3.6
+16,Restaurant_16,Delhi,Biryani,3.6
+17,Restaurant_17,Chennai,Street Food,4.6
+18,Restaurant_18,Pune,Biryani,3.3
+19,Restaurant_19,Mumbai,North Indian,4.3
+20,Restaurant_20,Hyderabad,North Indian,4.1
+21,Restaurant_21,Chennai,Street Food,3.6
+22,Restaurant_22,Chennai,Street Food,3.8
+23,Restaurant_23,Mumbai,Italian,3.5
+24,Restaurant_24,Hyderabad,Street Food,4.2
+25,Restaurant_25,Pune,Chinese,3.2
+26,Restaurant_26,Bengaluru,Biryani,3.0
+27,Restaurant_27,Hyderabad,Desserts,4.2
+28,Restaurant_28,Mumbai,Continental,3.4
+29,Restaurant_29,Chennai,Street Food,3.1
+30,Restaurant_30,Pune,Fast Food,3.8
+31,Restaurant_31,Hyderabad,North Indian,3.1
+32,Restaurant_32,Bengaluru,Chinese,4.7
+33,Restaurant_33,Bengaluru,Healthy Food,3.1
+34,Restaurant_34,Delhi,Continental,4.1
+35,Restaurant_35,Delhi,Desserts,3.8
+36,Restaurant_36,Kolkata,Continental,4.3
+37,Restaurant_37,Mumbai,Street Food,3.6
+38,Restaurant_38,Hyderabad,Italian,3.3
+39,Restaurant_39,Hyderabad,North Indian,4.9
+40,Restaurant_40,Kolkata,North Indian,4.6
+41,Restaurant_41,Chennai,Healthy Food,4.6
+42,Restaurant_42,Chennai,Italian,3.5
+43,Restaurant_43,Kolkata,Biryani,3.1
+44,Restaurant_44,Chennai,South Indian,3.6
+45,Restaurant_45,Delhi,Chinese,4.0
+46,Restaurant_46,Hyderabad,North Indian,3.6
+47,Restaurant_47,Kolkata,Fast Food,4.6
+48,Restaurant_48,Hyderabad,North Indian,3.5
+49,Restaurant_49,Bengaluru,Continental,4.8
+50,Restaurant_50,Delhi,North Indian,3.9
+51,Restaurant_51,Pune,North Indian,4.6
+52,Restaurant_52,Delhi,South Indian,3.4
+53,Restaurant_53,Kolkata,South Indian,3.8
+54,Restaurant_54,Pune,Desserts,4.3
+55,Restaurant_55,Bengaluru,Biryani,3.3
+56,Restaurant_56,Kolkata,Fast Food,3.3
+57,Restaurant_57,Mumbai,North Indian,4.8
+58,Restaurant_58,Hyderabad,North Indian,4.4
+59,Restaurant_59,Bengaluru,Chinese,3.1
+60,Restaurant_60,Hyderabad,South Indian,3.8
+61,Restaurant_61,Chennai,Fast Food,3.8
+62,Restaurant_62,Mumbai,Healthy Food,4.4
+63,Restaurant_63,Mumbai,Desserts,3.5
+64,Restaurant_64,Bengaluru,Biryani,3.4
+65,Restaurant_65,Mumbai,Italian,3.2
+66,Restaurant_66,Pune,Biryani,3.8
+67,Restaurant_67,Mumbai,Continental,4.3
+68,Restaurant_68,Hyderabad,North Indian,3.1
+69,Restaurant_69,Hyderabad,Desserts,4.7
+70,Restaurant_70,Kolkata,Continental,3.8
+71,Restaurant_71,Hyderabad,Fast Food,3.5
+72,Restaurant_72,Kolkata,Italian,3.2
+73,Restaurant_73,Hyderabad,South Indian,3.3
+74,Restaurant_74,Pune,Desserts,4.8
+75,Restaurant_75,Kolkata,Desserts,4.2
+76,Restaurant_76,Delhi,North Indian,4.0
+77,Restaurant_77,Chennai,Street Food,4.2
+78,Restaurant_78,Bengaluru,Desserts,3.8
+79,Restaurant_79,Hyderabad,Chinese,4.4
+80,Restaurant_80,Mumbai,Italian,3.1
+81,Restaurant_81,Hyderabad,Italian,4.1
+82,Restaurant_82,Mumbai,Chinese,3.3
+83,Restaurant_83,Chennai,Healthy Food,3.2
+84,Restaurant_84,Chennai,Chinese,3.6
+85,Restaurant_85,Chennai,Chinese,3.2
+86,Restaurant_86,Mumbai,Italian,3.2
+87,Restaurant_87,Hyderabad,Biryani,3.6
+88,Restaurant_88,Chennai,Italian,4.9
+89,Restaurant_89,Pune,Street Food,3.3
+90,Restaurant_90,Kolkata,North Indian,3.0
+91,Restaurant_91,Mumbai,Continental,4.5
+92,Restaurant_92,Mumbai,Biryani,4.5
+93,Restaurant_93,Hyderabad,South Indian,3.7
+94,Restaurant_94,Mumbai,Continental,3.9
+95,Restaurant_95,Mumbai,North Indian,4.2
+96,Restaurant_96,Chennai,Street Food,3.1
+97,Restaurant_97,Hyderabad,Street Food,4.8
+98,Restaurant_98,Chennai,South Indian,4.7
+99,Restaurant_99,Kolkata,Biryani,3.5
+100,Restaurant_100,Kolkata,Healthy Food,3.0
+101,Restaurant_101,Chennai,Chinese,4.8
+102,Restaurant_102,Kolkata,Biryani,4.0
+103,Restaurant_103,Hyderabad,Healthy Food,4.0
+104,Restaurant_104,Bengaluru,Street Food,4.3
+105,Restaurant_105,Chennai,Italian,4.2
+106,Restaurant_106,Pune,North Indian,4.8
+107,Restaurant_107,Pune,South Indian,4.8
+108,Restaurant_108,Mumbai,North Indian,4.6
+109,Restaurant_109,Kolkata,Fast Food,4.2
+110,Restaurant_110,Pune,Fast Food,4.5
+111,Restaurant_111,Mumbai,Biryani,4.3
+112,Restaurant_112,Bengaluru,Street Food,4.1
+113,Restaurant_113,Hyderabad,Street Food,3.2
+114,Restaurant_114,Hyderabad,Chinese,4.5
+115,Restaurant_115,Hyderabad,Chinese,4.6
+116,Restaurant_116,Pune,Chinese,4.2
+117,Restaurant_117,Bengaluru,Italian,4.6
+118,Restaurant_118,Pune,Continental,4.2
+119,Restaurant_119,Kolkata,Desserts,3.4
+120,Restaurant_120,Pune,Continental,3.5
+121,Restaurant_121,Bengaluru,North Indian,3.4
+122,Restaurant_122,Bengaluru,Continental,3.7
+123,Restaurant_123,Kolkata,Italian,3.1
+124,Restaurant_124,Bengaluru,North Indian,4.2
+125,Restaurant_125,Bengaluru,Continental,3.6
+126,Restaurant_126,Hyderabad,Italian,4.2
+127,Restaurant_127,Kolkata,Desserts,3.7
+128,Restaurant_128,Delhi,Continental,4.3
+129,Restaurant_129,Delhi,Italian,3.6
+130,Restaurant_130,Bengaluru,Chinese,3.5
+131,Restaurant_131,Delhi,Street Food,3.9
+132,Restaurant_132,Delhi,Chinese,4.3
+133,Restaurant_133,Bengaluru,Street Food,3.7
+134,Restaurant_134,Delhi,South Indian,4.8
+135,Restaurant_135,Pune,South Indian,3.1
+136,Restaurant_136,Mumbai,South Indian,3.8
+137,Restaurant_137,Kolkata,Desserts,4.8
+138,Restaurant_138,Mumbai,Chinese,4.0
+139,Restaurant_139,Bengaluru,Street Food,3.8
+140,Restaurant_140,Hyderabad,Italian,4.1
+141,Restaurant_141,Kolkata,North Indian,4.1
+142,Restaurant_142,Bengaluru,Italian,4.4
+143,Restaurant_143,Hyderabad,North Indian,3.2
+144,Restaurant_144,Mumbai,Fast Food,3.5
+145,Restaurant_145,Bengaluru,Italian,4.1
+146,Restaurant_146,Kolkata,Continental,4.6
+147,Restaurant_147,Kolkata,Continental,4.1
+148,Restaurant_148,Chennai,Biryani,3.5
+149,Restaurant_149,Pune,Chinese,4.3
+150,Restaurant_150,Delhi,North Indian,4.4
+151,Restaurant_151,Hyderabad,North Indian,3.5
+152,Restaurant_152,Chennai,Chinese,3.7
+153,Restaurant_153,Delhi,Desserts,4.0
+154,Restaurant_154,Delhi,Biryani,3.9
+155,Restaurant_155,Bengaluru,Desserts,3.7
+156,Restaurant_156,Delhi,Desserts,3.6
+157,Restaurant_157,Pune,Desserts,3.2
+158,Restaurant_158,Kolkata,Chinese,3.1
+159,Restaurant_159,Chennai,Desserts,4.8
+160,Restaurant_160,Delhi,Continental,4.6
+161,Restaurant_161,Bengaluru,South Indian,3.7
+162,Restaurant_162,Pune,Fast Food,4.8
+163,Restaurant_163,Mumbai,North Indian,4.3
+164,Restaurant_164,Kolkata,North Indian,3.9
+165,Restaurant_165,Kolkata,Fast Food,3.9
+166,Restaurant_166,Chennai,Chinese,3.2
+167,Restaurant_167,Kolkata,Italian,3.2
+168,Restaurant_168,Delhi,Chinese,4.1
+169,Restaurant_169,Bengaluru,North Indian,4.1
+170,Restaurant_170,Kolkata,North Indian,3.4
+171,Restaurant_171,Kolkata,Fast Food,4.8
+172,Restaurant_172,Mumbai,Desserts,4.5
+173,Restaurant_173,Mumbai,Chinese,3.2
+174,Restaurant_174,Hyderabad,Street Food,4.8
+175,Restaurant_175,Pune,Fast Food,4.9
+176,Restaurant_176,Delhi,Continental,4.9
+177,Restaurant_177,Kolkata,North Indian,3.1
+178,Restaurant_178,Kolkata,Fast Food,4.4
+179,Restaurant_179,Bengaluru,Chinese,4.0
+180,Restaurant_180,Hyderabad,North Indian,4.3
