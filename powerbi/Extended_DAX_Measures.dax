@@ -1,0 +1,57 @@
+// Additional measures for the extended model.
+// Tables: FactOrderItems, DimMenuItem, FactDelivery, DimDeliveryPartner,
+// DimPromotion, BridgeOrderPromotion.
+
+Item Revenue =
+SUM ( FactOrderItems[line_total] )
+
+Items Sold =
+SUM ( FactOrderItems[quantity] )
+
+Average Items per Order =
+DIVIDE ( [Items Sold], [Total Orders] )
+
+Average Prep Time (min) =
+AVERAGE ( FactDelivery[prep_time_mins] )
+
+Average Travel Time (min) =
+AVERAGE ( FactDelivery[travel_time_mins] )
+
+Average Delivery Distance (km) =
+AVERAGE ( FactDelivery[distance_km] )
+
+Completed Delivery Records =
+CALCULATE (
+    COUNTROWS ( FactDelivery ),
+    FactDelivery[delivery_outcome] = "Delivered"
+)
+
+Delayed Delivery Records =
+CALCULATE (
+    COUNTROWS ( FactDelivery ),
+    FactDelivery[delivery_outcome] = "Delayed"
+)
+
+Delivery Delay Share =
+DIVIDE (
+    [Delayed Delivery Records],
+    [Completed Delivery Records] + [Delayed Delivery Records]
+)
+
+Average Partner Rating =
+AVERAGE ( DimDeliveryPartner[partner_rating] )
+
+Promotion Redemptions =
+COUNTROWS ( BridgeOrderPromotion )
+
+Promotion Discount Investment =
+SUM ( BridgeOrderPromotion[discount_amount] )
+
+Revenue from Promo Orders =
+CALCULATE (
+    [Delivered Revenue],
+    TREATAS (
+        VALUES ( BridgeOrderPromotion[order_id] ),
+        FactOrders[order_id]
+    )
+)
