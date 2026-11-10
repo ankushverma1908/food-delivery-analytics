@@ -1,0 +1,126 @@
+# Power BI Dashboard Build Specification
+
+This file is the implementation checklist for the five-page report. It is designed for Power BI Desktop.
+
+## 1. Load data
+
+Run these commands from the repository root:
+
+```bash
+pip install -r requirements.txt
+python src/prepare_powerbi_data.py
+python src/generate_extended_data.py
+python src/build_analytics_marts.py
+python src/data_quality_report.py
+python -m unittest discover -s tests -v
+```
+
+Import these CSVs using **Home → Get data → Text/CSV**:
+
+- `data/processed/FactOrders.csv`
+- `data/processed/DimCustomer.csv`
+- `data/processed/DimRestaurant.csv`
+- `data/processed/DimDate.csv`
+- `data/extended/FactOrderItems.csv`
+- `data/extended/DimMenuItem.csv`
+- `data/extended/FactDelivery.csv`
+- `data/extended/DimDeliveryPartner.csv`
+- `data/extended/DimPromotion.csv`
+- `data/extended/BridgeOrderPromotion.csv`
+
+Set date/time columns to Date or Date/Time and monetary, quantity, duration, and distance fields to appropriate numeric types.
+
+## 2. Create relationships
+
+Use the relationship list in [EXTENDED_MODEL.md](EXTENDED_MODEL.md). Set relationships to single-direction filtering from dimensions to facts wherever possible. Mark `DimDate[Date]` as the date table. Sort `DimDate[MonthName]` by `DimDate[MonthNo]`.
+
+Do not connect the promotion bridge directly to item lines. Keep promotion and item analysis on separate visuals to avoid duplicated order-level amounts.
+
+## 3. Add core measures
+
+Import or paste the measures from:
+
+- [DAX_Measures.dax](DAX_Measures.dax)
+- [Extended_DAX_Measures.dax](Extended_DAX_Measures.dax)
+- [Advanced_DAX_Measures.dax](Advanced_DAX_Measures.dax)
+
+## 4. Five report pages
+
+### Page 1 — Executive Overview
+KPI cards: Total Orders, Delivered Orders, Delivered Revenue, Average Order Value, Delivery Success Rate, Cancellation Rate.
+
+Visuals:
+- Line chart: Delivered Revenue by YearMonth
+- Clustered column chart: Orders by status
+- Bar chart: Delivered Revenue by city
+- Bar chart: Delivered Revenue by cuisine
+- Slicers: Date, City, Order Status, Cuisine
+
+### Page 2 — Customer Analytics
+KPI cards: Unique Customers, Repeat Customer Rate, Average Customer Rating.
+
+Visuals:
+- Customer count by RFM segment
+- Monetary value by RFM segment
+- Top 10 customers by delivered spend
+- Customer signup month versus first delivered order month
+- Slicers: City, Signup Month, RFM Segment
+
+Use the generated `data/analytics/customer_rfm.csv` and `customer_activation_cohort.csv` as supplementary tables if you want precomputed customer segments in the report.
+
+### Page 3 — Restaurant & Menu
+KPI cards: Delivered Revenue, Average Order Value, Items Sold.
+
+Visuals:
+- Top 10 restaurants by delivered revenue
+- Revenue by cuisine
+- Item revenue by item category
+- Top menu items by generated line revenue
+- Average items per order by city
+
+Add a visible note that item-level revenue is a synthetic allocation of order subtotal, not observed item-level sales.
+
+### Page 4 — Delivery Operations
+KPI cards: Average Delivery Time, Average Prep Time, Average Travel Time, Average Delivery Distance.
+
+Visuals:
+- Delivery time by city
+- Prep versus travel time
+- Delayed share by city
+- Partner rating distribution
+- Delivery distance versus delivery time (scatter)
+
+Do not describe the scatter plot as proof of causation.
+
+### Page 5 — Campaign Analysis
+KPI cards: Promotion Redemptions, Promotion Discount Investment, Revenue from Promo Orders.
+
+Visuals:
+- Redemptions by synthetic campaign
+- Discount investment by campaign
+- Delivered revenue from promo orders by month
+- Average order value for promo versus non-promo delivered orders
+
+Label the campaign names as inferred/synthetic, not real coupon history.
+
+## 5. Formatting and usability
+
+- Use a consistent 16:9 canvas and a restrained, accessible theme.
+- Put the report title and a small "Synthetic portfolio dataset" label on every page.
+- Use INR currency formatting for monetary measures.
+- Use whole numbers for orders and one decimal place for rates, durations, and ratings.
+- Add useful tooltips and meaningful visual titles.
+- Keep slicers aligned and consistent across pages.
+- Add a footer with the data limitation statement.
+
+## 6. Final QA before publishing
+
+- Confirm all relationships are active and have the intended cardinality.
+- Confirm delivered revenue excludes cancelled and delayed orders.
+- Confirm no order-level measure is accidentally multiplied by item or promotion bridge rows.
+- Test every slicer on every page.
+- Check blanks, zero denominators, date sorting, and tooltip values.
+- Save as `Food_Delivery_Analytics.pbix` in the repository's `powerbi/` folder.
+- Export a PDF or page screenshots for the portfolio README.
+
+**Important:** The source repository contains reproducible CSV generation, SQL, DAX, and this report specification. A genuine `.pbix` file must be created and saved in Power BI Desktop; it is not generated by the Python pipeline.
