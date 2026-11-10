@@ -1,0 +1,106 @@
+name: Validate Food Delivery Analytics
+
+on:
+  push:
+    branches:
+      - upgrade/food-delivery-powerbi
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run source data integrity tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Generate Power BI tables
+        run: python src/prepare_powerbi_data.py
+
+      - name: Generate extended synthetic tables
+        run: python src/generate_extended_data.py
+
+      - name: Build analytics marts
+        run: python src/build_analytics_marts.py
+
+      - name: Generate data quality report
+        run: python src/data_quality_report.py
+
+      - name: Validate generated outputs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd
+
+          root = Path(".")
+          required = [
+              "data/processed/FactOrders.csv",
+              "data/processed/DimCustomer.csv",
+              "data/processed/DimRestaurant.csv",
+              "data/processed/DimDate.csv",
+              "data/extended/FactOrderItems.csv",
+              "data/extended/FactDelivery.csv",
+              "data/extended/DimMenuItem.csv",
+              "data/extended/DimDeliveryPartner.csv",
+              "data/extended/DimPromotion.csv",
+              "data/extended/BridgeOrderPromotion.csv",
+              "data/analytics/monthly_kpis.csv",
+              "data/analytics/city_performance.csv",
+              "data/analytics/cuisine_performance.csv",
+              "data/analytics/restaurant_performance.csv",
+              "data/analytics/hourly_demand.csv",
+              "data/analytics/customer_rfm.csv",
+              "data/analytics/customer_activation_cohort.csv",
+              "data/analytics/order_status_mix.csv",
+              "reports/data_quality_checks.csv",
+          ]
+          missing = [p for p in required if not (root / p).is_file()]
+          if missing:
+              raise SystemExit("Missing generated outputs: " + ", ".join(missing))
+
+          orders = pd.read_csv("data/food_delivery_orders.csv")
+          items = pd.read_csv("data/extended/FactOrderItems.csv")
+          item_totals = items.groupby("order_id")["line_total"].sum()
+          expected = orders.set_index("order_id")["order_value"]
+          delta = (expected - item_totals).abs()
+          if delta.max() > 0.011:
+              raise SystemExit(f"Item revenue does not reconcile; max difference={delta.max()}")
+
+          quality = pd.read_csv("reports/data_quality_checks.csv")
+          if not quality["passed"].astype(bool).all():
+              raise SystemExit("One or more source data quality checks failed")
+
+          print(f"Validated {len(required)} generated files")
+          print(f"Orders: {len(orders):,}; item lines: {len(items):,}")
+          print("All generated output and reconciliation checks passed.")
+          PY
+
+      - name: Upload generated project data
+        uses: actions/upload-artifact@v4
+        with:
+          name: food-delivery-analytics-data
+          path: |
+            data/processed/
+            data/extended/
+            data/analytics/
+            reports/data_quality_checks.csv
+          retention-days: 14
