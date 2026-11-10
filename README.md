@@ -1,75 +1,86 @@
-# 🍔 Food Delivery Analytics (Swiggy/Zomato-style)
+# Food Delivery Intelligence & Business Analytics
 
-Order-level analysis of a food delivery platform, covering revenue trends, customer
-behavior (RFM segmentation), restaurant/cuisine performance, delivery-time analysis,
-and city-wise insights — the kind of analysis a data analyst would run for a
-Swiggy/Zomato-style business.
+An end-to-end portfolio project analysing a fictional multi-city food delivery platform using Python, SQL, and Power BI.
 
-## 📊 What's inside
+> **Data provenance:** The source dataset and all extension tables are synthetic and generated for portfolio practice. They are not actual Swiggy or Zomato data, customer records, menu prices, delivery-partner records, or marketing campaigns.
 
-- **Revenue & order trends** — monthly revenue, order volume, hour-of-day and
-  day-of-week demand patterns
-- **Customer behavior** — repeat purchase rate, average lifetime spend, and an
-  RFM (Recency, Frequency, Monetary) segmentation into Champions / Loyal /
-  Potential / At Risk cohorts
-- **Restaurant & cuisine performance** — top-performing cuisines and restaurants by
-  revenue
-- **Delivery performance** — delivery time distribution, cancellation/delay rates,
-  and their link to customer ratings
-- **City-wise insights** — revenue and delivery speed broken down by city
+## Business questions
 
-## 🗂️ Project structure
+- How do order volume, delivered revenue, and average order value change over time?
+- Which cities, cuisines, and restaurants contribute the most delivered revenue?
+- What proportion of customers return to place another order?
+- Which customer segments have high value or show signs of churn risk?
+- How do preparation time, travel time, and delivery distance relate to delivery outcomes and ratings?
+- Which menu categories and products contribute most to basket value?
+- How are discount redemptions distributed across synthetic campaign types?
 
+## Technology
+
+Python (pandas, NumPy), SQL (DuckDB-compatible), Power BI (data model and DAX), Jupyter.
+
+## Repository layout
+
+```text
+data/                 Original synthetic source CSVs and generators
+data/extended/        Generated item, delivery, partner, and promotion tables
+data/processed/       Power BI fact and dimension CSVs
+data/analytics/       Reusable KPI, city, cuisine, restaurant, and RFM marts
+notebooks/            Original exploratory analysis notebook
+src/                  Reproducible Python pipelines
+sql/                  Core and advanced business analysis queries
+powerbi/              Model instructions and DAX measures
+reports/              Data dictionary and generated quality report
+docs/                 Architecture and metric definitions
+tests/                Automated data integrity tests
 ```
-food-delivery-analytics/
-├── data/
-│   ├── generate_data.py       # generates the synthetic dataset
-│   ├── food_delivery_orders.csv
-│   ├── customers.csv
-│   └── restaurants.csv
-├── notebooks/
-│   └── food_delivery_analysis.ipynb
-├── requirements.txt
-└── README.md
-```
 
-## 📦 Dataset
+## Quick start
 
-The dataset (~15,000 orders, 2,500 customers, 180 restaurants across 7 Indian
-cities) is **synthetically generated** with realistic distributions (order values,
-delivery times, ratings, cancellations) to resemble a real Swiggy/Zomato export —
-no real user data is used. Regenerate it anytime with:
+Create and activate a virtual environment if desired, then run:
 
 ```bash
-cd data
-python generate_data.py
-```
-
-Swap in a real order export with the same column names and the notebook works
-unchanged.
-
-## 🚀 Getting started
-
-```bash
-git clone https://github.com/ankushverma1908/food-delivery-analytics.git
-cd food-delivery-analytics
 pip install -r requirements.txt
-jupyter notebook notebooks/food_delivery_analysis.ipynb
+python -m unittest discover -s tests -v
+python src/data_quality_report.py
+python src/prepare_powerbi_data.py
+python src/generate_extended_data.py
+python src/build_analytics_marts.py
 ```
 
-## 🔑 Key takeaways
+Generated tables are saved under `data/processed/`, `data/extended/`, and `data/analytics/`. Raw source CSVs are not overwritten.
 
-- Weekend evenings (Fri–Sun, 7–10 PM) show the highest order density — a signal
-  for staffing and promo timing
-- RFM segmentation surfaces **Champions** and **At Risk** cohorts for targeted
-  retention campaigns
-- A small set of cuisines/restaurants drives a disproportionate share of revenue
-- Delivery delays correlate with lower ratings — a clear lever for retention
+## Power BI
 
-## 🛠️ Tech stack
+1. Run the preparation and extension scripts above.
+2. Import the CSV tables described in [powerbi/EXTENDED_MODEL.md](powerbi/EXTENDED_MODEL.md).
+3. Create the documented one-to-many relationships and mark the calendar dimension as the Date table.
+4. Add measures from [powerbi/DAX_Measures.dax](powerbi/DAX_Measures.dax) and [powerbi/Extended_DAX_Measures.dax](powerbi/Extended_DAX_Measures.dax).
+5. Build five report pages: Executive Overview, Customer Analytics, Restaurant & Menu, Delivery Operations, and Campaign Analysis.
 
-Python · pandas · NumPy · Matplotlib · Seaborn · Jupyter
+The repository includes the model plan and DAX definitions; the actual `.pbix` report must be created and saved in Power BI Desktop.
 
-## 📄 License
+## SQL
 
-MIT
+Load the source and generated CSV files into DuckDB using the table names referenced in the SQL scripts. See:
+- [Core business analysis](sql/business_analysis.sql)
+- [Extended item, delivery, and promotion analysis](sql/extended_analysis.sql)
+- [Advanced window-function and cohort questions](sql/advanced_business_questions.sql)
+
+## Documentation
+
+- [Upgrade guide](UPGRADE_GUIDE.md)
+- [Project architecture and KPI definitions](docs/PROJECT_ARCHITECTURE.md)
+- [Data dictionary](reports/DATA_DICTIONARY.md)
+- [Extended Power BI model](powerbi/EXTENDED_MODEL.md)
+
+## Important analytical limitations
+
+- Item lines are simulated allocations that reconcile to the source order subtotal; they are not observed item-level transactions.
+- Delivery distance, partner assignment, preparation/travel split, and partner ratings are simulated.
+- Promotion labels are inferred from existing discount-rate bands and are not original coupon records.
+- Use delivered orders for realized revenue. Keep cancelled and delayed outcomes distinct.
+- Descriptive relationships (for example, delivery time and rating) must not be presented as causal proof.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
