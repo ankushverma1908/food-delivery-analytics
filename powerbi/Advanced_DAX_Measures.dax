@@ -1,0 +1,77 @@
+// Advanced business measures for the Food Delivery Analytics semantic model.
+// Requires active DimDate[Date] -> FactOrders[order_date] relationship.
+
+Repeat Customers =
+COUNTROWS (
+    FILTER (
+        VALUES ( FactOrders[customer_id] ),
+        CALCULATE (
+            DISTINCTCOUNT ( FactOrders[order_id] ),
+            FactOrders[order_status] = "Delivered"
+        ) > 1
+    )
+)
+
+Customers With Delivered Orders =
+CALCULATE (
+    DISTINCTCOUNT ( FactOrders[customer_id] ),
+    FactOrders[order_status] = "Delivered"
+)
+
+Repeat Customer Rate =
+DIVIDE ( [Repeat Customers], [Customers With Delivered Orders] )
+
+Delivered Revenue Previous Month =
+CALCULATE (
+    [Delivered Revenue],
+    DATEADD ( DimDate[Date], -1, MONTH )
+)
+
+Delivered Revenue MoM Change =
+[Delivered Revenue] - [Delivered Revenue Previous Month]
+
+Delivered Revenue MoM % =
+DIVIDE ( [Delivered Revenue MoM Change], [Delivered Revenue Previous Month] )
+
+Delivered Revenue YTD =
+TOTALYTD ( [Delivered Revenue], DimDate[Date] )
+
+Orders Previous Month =
+CALCULATE (
+    [Total Orders],
+    DATEADD ( DimDate[Date], -1, MONTH )
+)
+
+Orders MoM Change =
+[Total Orders] - [Orders Previous Month]
+
+Orders MoM % =
+DIVIDE ( [Orders MoM Change], [Orders Previous Month] )
+
+Discounted Delivered Orders =
+CALCULATE (
+    [Delivered Orders],
+    FactOrders[discount] > 0
+)
+
+Non-Discounted Delivered Orders =
+CALCULATE (
+    [Delivered Orders],
+    FactOrders[discount] = 0
+)
+
+Discounted Order Share =
+DIVIDE ( [Discounted Delivered Orders], [Delivered Orders] )
+
+Average Discount per Delivered Order =
+DIVIDE (
+    CALCULATE ( SUM ( FactOrders[discount] ), FactOrders[order_status] = "Delivered" ),
+    [Delivered Orders]
+)
+
+// Operational rate: delayed orders among non-cancelled orders.
+Delayed Share of Non-Cancelled =
+DIVIDE (
+    [Delayed Orders],
+    [Delivered Orders] + [Delayed Orders]
+)
