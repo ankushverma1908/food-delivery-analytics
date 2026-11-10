@@ -108,7 +108,7 @@ def main():
             prep = int(rng.integers(8, max(9, min(31, total))))
             prep = min(prep, total - 1)
             travel = total - prep
-            assigned = row.order_date + pd.Timedelta(minutes=2)
+            assigned = row.order_date
             pickup = assigned + pd.Timedelta(minutes=prep)
             completed = row.order_date + pd.Timedelta(minutes=total)
             delivery_rows.append({
